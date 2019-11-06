@@ -44,6 +44,10 @@ export default {
         pointRadius: {
             type: Number,
             default: 6
+        },
+        fontSize: {
+            type: Number,
+            default: 14
         }
     },
     data() {
@@ -88,7 +92,7 @@ export default {
                 ctx.arc(this.outerRadius, this.outerRadius, this.circleRadius, 0, this.deg2Arc(360));
                 ctx.stroke();
                 // 画文字
-                ctx.font = '14px Arial,"Microsoft YaHei"'
+                ctx.font = `${this.fontSize}px Arial,"Microsoft YaHei"`
                 ctx.fillStyle = this.circleColor;
                 ctx.textAlign = 'center'
                 ctx.textBaseline = 'middle'
