@@ -17,11 +17,19 @@ export default {
         },
         circleColor: {
             type: String,
-            default: '#3B77E3'
+            default: '#e5e5e5'
         },
         lineWidth: {
             type: Number,
             default: 8
+        },
+        withGradient: {
+            type: Boolean,
+            default: true
+        },
+        lineColor: {
+            type: String,
+            default: '#3B77E3'
         },
         lineColorStops: {
             type: Array,
@@ -38,13 +46,28 @@ export default {
                 return [270, 90]
             }
         },
-        label: {
+        fontSize: {
+            type: Number,
+            default: 14
+        },
+        fontColor: {
             type: String,
-            required: true
+            default: '#3B77E3'
+        },
+        label: {
+            type: String
         },
         pointRadius: {
             type: Number,
             default: 6
+        },
+        pointColor: {
+            type: String,
+            default: '#3B77E3'
+        },
+        animated: {
+            type: Boolean,
+            default: true
         },
         easing: {
             type: String,
@@ -58,10 +81,6 @@ export default {
             type: Number,
             // 浏览器大约是60FPS，因此1s大约执行60次requestAnimationFrame
             default: 1
-        },
-        fontSize: {
-            type: Number,
-            default: 14
         }
     },
     data() {
@@ -72,7 +91,7 @@ export default {
     },
     computed: {
         outerRadius() {
-            return this.circleRadius + this.pointRadius
+            return this.pointRadius > 0 ? (this.circleRadius + this.pointRadius) : (this.circleRadius + this.lineWidth / 2)
         },
         canvasSize() {
             return 2 * this.outerRadius + 'px'
@@ -92,12 +111,18 @@ export default {
         initCanvas() {
             var canvas = this.$refs.canvasDemo;
             var ctx = canvas.getContext('2d');
-            this.gradient = ctx.createLinearGradient(this.circleRadius, 0, this.circleRadius, this.circleRadius * 2);
-            this.lineColorStops.forEach(item => {
-                this.gradient.addColorStop(item.percent, item.color);
-            });
-            // 用动画来画动态内容
-            this.animateDrawArc(canvas, ctx, this.angleRange[0], this.angleRange[1], 1, this.steps);
+            if (this.withGradient) {
+                this.gradient = ctx.createLinearGradient(this.circleRadius, 0, this.circleRadius, this.circleRadius * 2);
+                this.lineColorStops.forEach(item => {
+                    this.gradient.addColorStop(item.percent, item.color);
+                });
+            }
+            if (this.animated) {
+                // 用动画来画动态内容
+                this.animateDrawArc(canvas, ctx, this.angleRange[0], this.angleRange[1], 1, this.steps);
+            } else {
+                this.animateDrawArc(canvas, ctx, this.angleRange[0], this.angleRange[1], this.steps, this.steps);
+            }
         },
         animateDrawArc(canvas, ctx, startDeg, endDeg, stepNo, stepTotal) {
             window.requestAnimationFrame(() => {
@@ -112,23 +137,27 @@ export default {
                 ctx.arc(this.outerRadius, this.outerRadius, this.circleRadius, 0, this.deg2Arc(360));
                 ctx.stroke();
                 // 画文字
-                ctx.font = `${this.fontSize}px Arial,"Microsoft YaHei"`
-                ctx.fillStyle = this.circleColor;
-                ctx.textAlign = 'center'
-                ctx.textBaseline = 'middle'
-                ctx.fillText(this.label, canvas.clientWidth / 2, canvas.clientWidth / 2);
+                if (this.label) {
+                    ctx.font = `${this.fontSize}px Arial,"Microsoft YaHei"`
+                    ctx.fillStyle = this.fontColor;
+                    ctx.textAlign = 'center'
+                    ctx.textBaseline = 'middle'
+                    ctx.fillText(this.label, canvas.clientWidth / 2, canvas.clientWidth / 2);
+                }
                 // 画进度弧线
-                ctx.strokeStyle = this.gradient;
+                ctx.strokeStyle = this.withGradient ? this.gradient : this.lineColor;
                 ctx.lineWidth = this.lineWidth;
                 ctx.beginPath();
                 ctx.arc(this.outerRadius, this.outerRadius, this.circleRadius, startArc, nextArc);
                 ctx.stroke();
                 // 画点
-                ctx.fillStyle = this.circleColor;
-                const pointPosition = this.getPositionsByDeg(nextDeg);
-                ctx.beginPath();
-                ctx.arc(pointPosition.x + this.pointRadius, pointPosition.y + this.pointRadius, this.pointRadius, 0, this.deg2Arc(360));
-                ctx.fill();
+                if (this.pointRadius > 0) {
+                    ctx.fillStyle = this.pointColor;
+                    const pointPosition = this.getPositionsByDeg(nextDeg);
+                    ctx.beginPath();
+                    ctx.arc(pointPosition.x + this.pointRadius, pointPosition.y + this.pointRadius, this.pointRadius, 0, this.deg2Arc(360));
+                    ctx.fill();
+                }
                 if (stepNo !== stepTotal) {
                     stepNo++;
                     this.animateDrawArc(canvas, ctx, startDeg, endDeg, stepNo, stepTotal)
