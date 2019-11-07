@@ -1,6 +1,10 @@
 # vue-awesome-progress
 
-基于`vue`和`canvas`的环形进度条组件，支持和很多自定义的属性和动画效果
+基于`vue`和`canvas`的环形进度条组件，支持和很多自定义的属性和动画效果，效果图如下
+
+![环形进度条效果图](https://qncdn.wbjiang.cn/%E7%8E%AF%E5%BD%A2%E8%BF%9B%E5%BA%A6%E6%9D%A1%E6%95%88%E6%9E%9C%E5%9B%BE.gif)
+
+![其他效果案例](https://qncdn.wbjiang.cn/%E7%8E%AF%E5%BD%A2%E8%BF%9B%E5%BA%A6%E6%9D%A1%E5%85%B6%E4%BB%96%E6%95%88%E6%9E%9C%E6%A1%88%E4%BE%8B.gif)
 
 # Installation and Usage
 
@@ -33,7 +37,23 @@ export default {
 }
 ```
 
-### 使用实例
+### webpack配置
+
+由于当前版本发布时，未进行`babel`编译，因此需要使用时自行将`vue-awesome-progress`纳入`babel-loader`的解析范围。示例如下：
+
+```javascript
+// resolve函数是连接路径的，方法体是path.join(__dirname, "..", dir)
+{
+  test: /\.js$/,
+  loader: "babel-loader",
+  include: [
+    resolve("src"),
+    resolve("node_modules/vue-awesome-progress")
+  ]
+}
+```
+
+### 使用示例
 
 ```html
 <vue-awesome-progress
