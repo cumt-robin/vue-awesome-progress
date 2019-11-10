@@ -7,6 +7,20 @@ import BezierEasing from "bezier-easing";
 export default {
     name: 'VueAwesomeProgress',
     props: {
+        startDeg: {
+            type: Number,
+            default: 270,
+            validator: function(value) {
+                return value >= 0 && value < 360
+            }
+        },
+        percentage: {
+            type: Number,
+            default: 0,
+            validator: function(value) {
+                return value >= 0 && value <= 100
+            }
+        },
         circleRadius: {
             type: Number,
             default: 40
@@ -23,7 +37,7 @@ export default {
             type: Number,
             default: 8
         },
-        withGradient: {
+        useGradient: {
             type: Boolean,
             default: true
         },
@@ -40,11 +54,9 @@ export default {
                 ]
             }
         },
-        angleRange: {
-            type: Array,
-            default: function() {
-                return [270, 90]
-            }
+        showText: {
+            type: Boolean,
+            default: true
         },
         fontSize: {
             type: Number,
@@ -53,9 +65,6 @@ export default {
         fontColor: {
             type: String,
             default: '#3B77E3'
-        },
-        label: {
-            type: String
         },
         pointRadius: {
             type: Number,
@@ -81,6 +90,9 @@ export default {
             type: Number,
             // 浏览器大约是60FPS，因此1s大约执行60次requestAnimationFrame
             default: 1
+        },
+        format: {
+            type: Function
         }
     },
     data() {
@@ -111,17 +123,18 @@ export default {
         initCanvas() {
             var canvas = this.$refs.canvasDemo;
             var ctx = canvas.getContext('2d');
-            if (this.withGradient) {
+            if (this.useGradient) {
                 this.gradient = ctx.createLinearGradient(this.circleRadius, 0, this.circleRadius, this.circleRadius * 2);
                 this.lineColorStops.forEach(item => {
                     this.gradient.addColorStop(item.percent, item.color);
                 });
             }
+            const endDeg = this.getTargetDegByPercentage(this.startDeg, this.percentage)
             if (this.animated) {
                 // 用动画来画动态内容
-                this.animateDrawArc(canvas, ctx, this.angleRange[0], this.angleRange[1], 1, this.steps);
+                this.animateDrawArc(canvas, ctx, this.startDeg, endDeg, 1, this.steps);
             } else {
-                this.animateDrawArc(canvas, ctx, this.angleRange[0], this.angleRange[1], this.steps, this.steps);
+                this.animateDrawArc(canvas, ctx, this.startDeg, endDeg, this.steps, this.steps);
             }
         },
         animateDrawArc(canvas, ctx, startDeg, endDeg, stepNo, stepTotal) {
@@ -137,15 +150,22 @@ export default {
                 ctx.arc(this.outerRadius, this.outerRadius, this.circleRadius, 0, this.deg2Arc(360));
                 ctx.stroke();
                 // 画文字
-                if (this.label) {
+                if (this.showText) {
                     ctx.font = `${this.fontSize}px Arial,"Microsoft YaHei"`
                     ctx.fillStyle = this.fontColor;
                     ctx.textAlign = 'center'
                     ctx.textBaseline = 'middle'
-                    ctx.fillText(this.label, canvas.clientWidth / 2, canvas.clientWidth / 2);
+                    const currPercentage = this.easingFunc(stepNo / stepTotal) * this.percentage;
+                    let label;
+                    if (typeof this.format === 'function') {
+                        label = this.format(currPercentage)
+                    } else {
+                        label = Math.round(currPercentage) + '%'
+                    }
+                    ctx.fillText(label, canvas.clientWidth / 2, canvas.clientWidth / 2);
                 }
                 // 画进度弧线
-                ctx.strokeStyle = this.withGradient ? this.gradient : this.lineColor;
+                ctx.strokeStyle = this.useGradient ? this.gradient : this.lineColor;
                 ctx.lineWidth = this.lineWidth;
                 ctx.beginPath();
                 ctx.arc(this.outerRadius, this.outerRadius, this.circleRadius, startArc, nextArc);
@@ -176,7 +196,7 @@ export default {
                     return nextDeg > endDeg ? endDeg : nextDeg
                 }
                 return nextDeg
-            } else {
+            } else if (startDeg < endDeg) {
                 const diff = endDeg - startDeg
                 let nextDeg = startDeg + diff * this.easingFunc(stepNo / stepTotal)
                 if (nextDeg > endDeg) {
@@ -185,7 +205,12 @@ export default {
                     return nextDeg - 360
                 }
                 return nextDeg
+            } else {
+                return startDeg + 360 * this.easingFunc(stepNo / stepTotal)
             }
+        },
+        getTargetDegByPercentage(startDeg, percentage) {
+            return (startDeg + 360 * percentage / 100) % 360
         },
         // 根据角度获取点的位置
         getPositionsByDeg(deg) {

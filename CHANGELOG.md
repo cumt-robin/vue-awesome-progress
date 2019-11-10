@@ -1,5 +1,12 @@
 # 版本更新日志
 
+## v1.4.0
+
+1. 废弃`angle-range`，改用`percentage`控制进度，同时提供`start-deg`属性控制起始角度；
+2. `with-gradient`改为`use-gradient`
+3. 通过`show-text`控制是否显示进度文字
+4. 支持通过`format`函数自定义显示文字的规则
+
 ## v1.3.1
 
 修改README
