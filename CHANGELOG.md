@@ -1,5 +1,9 @@
 # 版本更新日志
 
+## v1.4.1
+
+修改README中的效果图
+
 ## v1.4.0
 
 1. 废弃`angle-range`，改用`percentage`控制进度，同时提供`start-deg`属性控制起始角度；

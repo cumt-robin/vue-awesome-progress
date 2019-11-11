@@ -4,7 +4,7 @@
 
 ![环形进度条效果图](https://qncdn.wbjiang.cn/%E7%8E%AF%E5%BD%A2%E8%BF%9B%E5%BA%A6%E6%9D%A1%E6%95%88%E6%9E%9C%E5%9B%BE.gif)
 
-![其他效果案例](https://qncdn.wbjiang.cn/%E7%8E%AF%E5%BD%A2%E8%BF%9B%E5%BA%A6%E6%9D%A1%E5%85%B6%E4%BB%96%E6%95%88%E6%9E%9C%E6%A1%88%E4%BE%8B.gif)
+![其他效果案例](https://qncdn.wbjiang.cn/v1.4.0%E6%95%88%E6%9E%9C%E5%9B%BE.gif)
 
 # Installation and Usage
 
