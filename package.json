@@ -1,8 +1,9 @@
 {
   "name": "vue-awesome-progress",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "progress component based on vue and canvas",
   "main": "components/index.js",
+  "module": "components/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

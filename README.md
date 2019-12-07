@@ -37,22 +37,6 @@ export default {
 }
 ```
 
-### webpack配置
-
-由于当前版本发布时，未进行`babel`编译，因此需要使用时自行将`vue-awesome-progress`纳入`babel-loader`的解析范围。示例如下：
-
-```javascript
-// resolve函数是连接路径的，方法体是path.join(__dirname, "..", dir)
-{
-  test: /\.js$/,
-  loader: "babel-loader",
-  include: [
-    resolve("src"),
-    resolve("node_modules/vue-awesome-progress")
-  ]
-}
-```
-
 ### 使用示例
 
 ```html
