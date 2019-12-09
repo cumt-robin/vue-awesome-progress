@@ -130,11 +130,15 @@ export default {
                 });
             }
             const endDeg = this.getTargetDegByPercentage(this.startDeg, this.percentage)
-            if (this.animated) {
-                // 用动画来画动态内容
-                this.animateDrawArc(canvas, ctx, this.startDeg, endDeg, 1, this.steps);
+            if (this.percentage === 0) {
+                this.animateDrawArc(canvas, ctx, this.startDeg, endDeg, 0, 0);
             } else {
-                this.animateDrawArc(canvas, ctx, this.startDeg, endDeg, this.steps, this.steps);
+                if (this.animated) {
+                    // 用动画来画动态内容
+                    this.animateDrawArc(canvas, ctx, this.startDeg, endDeg, 1, this.steps);
+                } else {
+                    this.animateDrawArc(canvas, ctx, this.startDeg, endDeg, this.steps, this.steps);
+                }
             }
         },
         animateDrawArc(canvas, ctx, startDeg, endDeg, stepNo, stepTotal) {
@@ -155,7 +159,7 @@ export default {
                     ctx.fillStyle = this.fontColor;
                     ctx.textAlign = 'center'
                     ctx.textBaseline = 'middle'
-                    const currPercentage = this.easingFunc(stepNo / stepTotal) * this.percentage;
+                    const currPercentage = stepTotal > 0 ? this.easingFunc(stepNo / stepTotal) * this.percentage : 0;
                     let label;
                     if (typeof this.format === 'function') {
                         label = this.format(currPercentage)
@@ -165,11 +169,13 @@ export default {
                     ctx.fillText(label, canvas.clientWidth / 2, canvas.clientWidth / 2);
                 }
                 // 画进度弧线
-                ctx.strokeStyle = this.useGradient ? this.gradient : this.lineColor;
-                ctx.lineWidth = this.lineWidth;
-                ctx.beginPath();
-                ctx.arc(this.outerRadius, this.outerRadius, this.circleRadius, startArc, nextArc);
-                ctx.stroke();
+                if (stepTotal > 0) {
+                    ctx.strokeStyle = this.useGradient ? this.gradient : this.lineColor;
+                    ctx.lineWidth = this.lineWidth;
+                    ctx.beginPath();
+                    ctx.arc(this.outerRadius, this.outerRadius, this.circleRadius, startArc, nextArc);
+                    ctx.stroke();
+                }
                 // 画点
                 if (this.pointRadius > 0) {
                     ctx.fillStyle = this.pointColor;
@@ -186,6 +192,9 @@ export default {
         },
         // 顺时针方向，根据开始deg，结束deg，以及步进值step，求取目标deg
         getTargetDeg(startDeg, endDeg, stepNo, stepTotal) {
+            if (stepTotal === 0) {
+                return startDeg
+            }
             startDeg = startDeg % 360;
             endDeg = endDeg % 360;
             if (startDeg > endDeg) {

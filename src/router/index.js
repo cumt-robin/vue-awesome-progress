@@ -4,10 +4,14 @@ import Router from "vue-router"
 Vue.use(Router)
 
 const router = new Router({
-    mode: 'history',
+    mode: 'hash',
     routes: [
         {
-            path: '/',
+            path: '',
+            redirect: '/home'
+        },
+        {
+            path: '/home',
             component: () => import("@/views/home.vue"),
             meta: {
                 name: '首页'

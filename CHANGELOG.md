@@ -1,14 +1,30 @@
 # 版本更新日志
 
+## v1.6.0
+
+### Add
+
+1. 支持开发时调试和打包
+
+### Fix
+
+1. 修复进度为0的bug
+
 ## v1.5.0
+
+### Add
 
 支持ES Module
 
 ## v1.4.1
 
+### Update
+
 修改README中的效果图
 
 ## v1.4.0
+
+### Add & Update
 
 1. 废弃`angle-range`，改用`percentage`控制进度，同时提供`start-deg`属性控制起始角度；
 2. `with-gradient`改为`use-gradient`
@@ -17,17 +33,25 @@
 
 ## v1.3.1
 
+### Update
+
 修改README
 
 ## v1.3.0
+
+### Add
 
 支持不显示文字；支持不显示圆点；支持用普通颜色绘制进度弧线；支持传入文字颜色；支持不使用动画
 
 ## v1.2.0
 
+### Add
+
 支持传入缓动函数easing和动画周期duration
 
 ## v1.1.0
+
+### Add
 
 支持传入字体大小
 

@@ -1,5 +1,6 @@
 const path = require("path")
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
 
@@ -8,34 +9,14 @@ function resolvePath(dir) {
 }
 
 module.exports = merge(baseWebpackConfig, {
-    mode: 'development',
+    mode: 'production',
     entry: './main.js',
     output: {
-        path: '/',
+        path: resolvePath('demo'),
         filename: "[name].bundle.js",
         publicPath: '/'
     },
-    devServer: {
-        port: 8080,
-        open: true,
-        hot: true,
-        historyApiFallback: true,
-        overlay: {
-            warnings: false,
-            errors: true
-        }
-    },
-    devtool: 'cheap-module-eval-source-map',
-    module: {
-        rules: [
-            {
-                enforce: 'pre',
-                test: /\.(js|vue)$/,
-                loader: 'eslint-loader',
-                exclude: /node_modules/
-            }
-        ]
-    },
+    devtool: 'source-map',
     plugins: [
         new HtmlWebpackPlugin({
             title: 'vue-awesome-progress',
@@ -43,7 +24,15 @@ module.exports = merge(baseWebpackConfig, {
             template: resolvePath('index.html'),
             // 最终写入的目标文件
             filename: 'index.html',
-            favicon: resolvePath('favicon.ico')
-        })
+            favicon: resolvePath('favicon.ico'),
+            minify: {
+                removeComments: true,
+                collapseWhitespace: true,
+                removeAttributeQuotes: true
+                // more options:
+                // https://github.com/kangax/html-minifier#options-quick-reference
+            }
+        }),
+        new CleanWebpackPlugin()
     ]
 })

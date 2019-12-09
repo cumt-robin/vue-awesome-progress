@@ -1,11 +1,13 @@
 {
   "name": "vue-awesome-progress",
-  "version": "1.5.0",
-  "description": "progress component based on vue and canvas",
-  "main": "src/components/index.js",
+  "version": "1.6.0",
+  "description": "a progress component based on vue and canvas, which supports customized animation and many attributes",
+  "main": "dist/vue-awesome-progress.js",
   "module": "src/components/index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --progress --config build/webpack.dev.conf.js",
+    "build": "cross-env NODE_ENV=production webpack --progress --config build/webpack.build.conf.js",
+    "build:demo": "cross-env NODE_ENV=production webpack --progress --config build/webpack.demo.conf.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -20,18 +22,28 @@
     "url": "https://github.com/cumt-robin/vue-awesome-progress.git"
   },
   "dependencies": {
-    "@babel/core": "^7.7.5",
     "bezier-easing": "^2.1.0",
-    "core-js": "^3.4.7",
+    "core-js": "^3.4.8",
     "vue": "^2.6.10",
     "vue-router": "^3.1.3"
   },
   "devDependencies": {
+    "@babel/cli": "^7.7.5",
+    "@babel/core": "^7.7.5",
     "@babel/plugin-syntax-dynamic-import": "^7.7.4",
+    "@babel/preset-env": "^7.7.6",
+    "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
+    "clean-webpack-plugin": "^3.0.0",
     "cross-env": "^6.0.3",
     "css-loader": "^3.2.1",
+    "eslint": "^6.7.2",
+    "eslint-import-resolver-webpack": "^0.11.1",
+    "eslint-loader": "^3.0.3",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-vue": "^6.0.1",
     "html-webpack-plugin": "^3.2.0",
+    "vue-eslint-parser": "^7.0.0",
     "vue-loader": "^15.7.2",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.6.10",
