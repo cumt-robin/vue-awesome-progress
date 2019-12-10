@@ -1,5 +1,15 @@
 # 版本更新日志
 
+## v1.6.2
+
+### Fix
+
+1. 去掉`package.json`的`module`字段，否则打包时还是报错
+
+### Update
+
+1. 更新`README`
+
 ## v1.6.1
 
 ### Fix

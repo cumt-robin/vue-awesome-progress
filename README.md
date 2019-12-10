@@ -6,17 +6,19 @@
 
 ![其他效果案例](https://qncdn.wbjiang.cn/v1.4.0%E6%95%88%E6%9E%9C%E5%9B%BE.gif)
 
-# Installation and Usage
+# 安装和使用
 
-## Installation
+## npm引入
+
+### 安装
 
 ```shell
 npm install --save vue-awesome-progress
 ```
 
-## Usage
+### 使用
 
-### 全局注册
+#### 全局注册
 
 ```javascript
 import Vue from 'vue'
@@ -24,7 +26,7 @@ import VueAwesomeProgress from "vue-awesome-progress"
 Vue.use(VueAwesomeProgress)
 ```
 
-### 局部引入组件
+#### 局部引入组件
 
 ```javascript
 import VueAwesomeProgress from "vue-awesome-progress"
@@ -37,7 +39,7 @@ export default {
 }
 ```
 
-### 使用示例
+#### 使用示例
 
 ```html
 <vue-awesome-progress
@@ -90,6 +92,26 @@ formatPeople(percentage) {
 }
 ```
 
+## script标签引用
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+  <script src="path-to/vue-awesome-progress.js"></script>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    new Vue({
+      el: "#app",
+      template: '<vue-awesome-progress></vue-awesome-progress>'
+    })
+  </script>
+</body>
+</html>
+```
 
 # 支持的组件属性
 
@@ -111,5 +133,5 @@ formatPeople(percentage) {
 | point-radius     | 圆点半径，值<=0则不显示圆点 | Number   | false    |        | 6                                                            |
 | point-color      | 圆点填充色                  | String   | false    |        | \#3B77E3                                                     |
 | animated         | 是否使用动画效果            | Boolean  | false    |        | true                                                         |
-| easing           | 缓动函数，默认是ease-in效果 | String   | false    |        | 0.42,0,1,1                                                   |
+| easing           | 贝塞尔缓动函数，默认是ease-in效果 | String   | false    |        | 0.42,0,1,1                                                   |
 | duration         | 动画周期，单位为秒          | Number   | false    |        | 1                                                            |
