@@ -9,11 +9,16 @@ function resolvePath(dir) {
 
 module.exports = merge(baseWebpackConfig, {
     mode: 'production',
-    entry: './components/index.js',
+    entry: {
+        'vue-awesome-progress': './components/index.js'
+    },
     output: {
         path: resolvePath('dist'),
-        filename: "vue-awesome-progress.js",
-        publicPath: '/'
+        publicPath: '/',
+        filename: '[name].js',
+        library: 'VueAwesomeProgress',
+        libraryTarget: 'umd',
+        umdNamedDefine: true
     },
     devtool: 'source-map',
     plugins: [

@@ -1,4 +1,14 @@
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define("VueAwesomeProgress", [], factory);
+	else if(typeof exports === 'object')
+		exports["VueAwesomeProgress"] = factory();
+	else
+		root["VueAwesomeProgress"] = factory();
+})(window, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -3935,4 +3945,5 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 /***/ })
 /******/ ]);
+});
 //# sourceMappingURL=vue-awesome-progress.js.map
