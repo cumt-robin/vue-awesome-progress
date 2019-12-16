@@ -1,5 +1,23 @@
 # 版本更新日志
 
+## v1.8.1
+
+### Update
+
+1. 修改`README`
+
+## v1.8.0
+
+### Add
+
+1. 支持压缩版本`vue-awesome-progress.min.js`
+
+## v1.7.0
+
+### Update
+
+1. 修改编译打包策略，减少包大小
+
 ## v1.6.2
 
 ### Fix

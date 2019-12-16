@@ -10,7 +10,7 @@ function resolvePath(dir) {
 
 module.exports = merge(baseWebpackConfig, {
     mode: 'production',
-    entry: './main.js',
+    entry: './src/main.js',
     output: {
         path: resolvePath('demo'),
         filename: "[name].bundle.js",
@@ -21,10 +21,10 @@ module.exports = merge(baseWebpackConfig, {
         new HtmlWebpackPlugin({
             title: 'vue-awesome-progress',
             // 模板，支持ejs
-            template: resolvePath('index.html'),
+            template: 'index.html',
             // 最终写入的目标文件
             filename: 'index.html',
-            favicon: resolvePath('favicon.ico'),
+            favicon: 'favicon.ico',
             minify: {
                 removeComments: true,
                 collapseWhitespace: true,

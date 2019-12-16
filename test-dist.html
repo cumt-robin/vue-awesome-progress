@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
-    <script src="./vue-awesome-progress.js"></script>
+    <script src="./dist/vue-awesome-progress.min.js"></script>
     <title>vue-awesome-progress</title>
 </head>
 <body>
@@ -13,7 +13,7 @@
     <script>
         new Vue({
             el: "#app",
-            template: '<vue-awesome-progress></vue-awesome-progress>'
+            template: '<vue-awesome-progress :percentage="40"></vue-awesome-progress>'
         })
     </script>
 </body>

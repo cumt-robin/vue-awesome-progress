@@ -7,10 +7,10 @@ function resolvePath(dir) {
     return path.join(__dirname, "..", dir)
 }
 
-module.exports = merge(baseWebpackConfig, {
+const buildConfig = merge(baseWebpackConfig, {
     mode: 'production',
     entry: {
-        'vue-awesome-progress': './components/index.js'
+        'vue-awesome-progress': './src/components/index.js'
     },
     output: {
         path: resolvePath('dist'),
@@ -20,7 +20,7 @@ module.exports = merge(baseWebpackConfig, {
         libraryTarget: 'umd',
         umdNamedDefine: true
     },
-    devtool: 'source-map',
+    devtool: false,
     plugins: [
         new CleanWebpackPlugin()
     ],
@@ -28,3 +28,10 @@ module.exports = merge(baseWebpackConfig, {
         minimize: false
     }
 })
+
+if (process.env.report) {
+    const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+    buildConfig.plugins.push(new BundleAnalyzerPlugin())
+}
+
+module.exports = buildConfig

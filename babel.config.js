@@ -1,13 +1,32 @@
-const config = {
+const buildConfig = {
     presets: [
         [
-          "@babel/preset-env",
-          {
-            loose: false,
-            modules: false,
-            useBuiltIns: 'usage',
-            corejs: 3
-          }
+            "@babel/preset-env",
+            {
+                loose: false,
+                modules: false,
+                useBuiltIns: false
+            }
+        ]
+    ],
+    plugins: [
+        "@babel/plugin-transform-runtime"
+    ]
+}
+
+const devConfig = {
+    presets: [
+        [
+            "@babel/preset-env",
+            {
+                loose: false,
+                modules: false,
+                useBuiltIns: 'usage',
+                corejs: 3,
+                targets: {
+                    browsers: ["> 1%", "last 2 versions", "not ie <= 8"]
+                }
+            }
         ]
     ],
     plugins: [
@@ -15,4 +34,4 @@ const config = {
     ]
 }
 
-module.exports = config
+module.exports = (process.env.NODE_ENV === 'development' || process.env.IS_DEMO) ? devConfig : buildConfig

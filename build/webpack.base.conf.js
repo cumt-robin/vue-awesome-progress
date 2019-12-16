@@ -1,5 +1,4 @@
 const path = require("path")
-const webpack = require("webpack")
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const cssLoader = {
@@ -22,7 +21,7 @@ function resolvePath(dir) {
 }
 
 module.exports = {
-    context: resolvePath('src'),
+    context: resolvePath(''),
     devtool: 'cheap-module-eval-source-map',
     resolve: {
         alias: {
