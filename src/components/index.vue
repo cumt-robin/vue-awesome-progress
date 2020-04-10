@@ -39,7 +39,7 @@ export default {
         },
         useGradient: {
             type: Boolean,
-            default: true
+            default: false
         },
         lineColor: {
             type: String,
@@ -64,7 +64,7 @@ export default {
         },
         fontColor: {
             type: String,
-            default: '#3B77E3'
+            default: '#444'
         },
         pointRadius: {
             type: Number,
@@ -89,7 +89,7 @@ export default {
         duration: {
             type: Number,
             // 浏览器大约是60FPS，因此1s大约执行60次requestAnimationFrame
-            default: 1
+            default: 0.6
         },
         format: {
             type: Function
@@ -98,128 +98,126 @@ export default {
     data() {
         return {
             gradient: null,
-            easingFunc: null
+            easingFunc: null,
+            animationId: null,
+            canvasInstance: null,
+            ctx: null
         }
     },
     computed: {
+        // 外围半径
         outerRadius() {
             return this.pointRadius > 0 ? (this.circleRadius + this.pointRadius) : (this.circleRadius + this.lineWidth / 2)
         },
+        // 画布大小
         canvasSize() {
             return 2 * this.outerRadius + 'px'
         },
+        // 执行的总步数
         steps() {
             return this.duration * 60
+        }
+    },
+    watch: {
+        percentage(val, oldVal) {
+            if (val >= 0 && val <= 100) {
+                window.cancelAnimationFrame(this.animationId)
+                // 更新进度条的时候，直接给定0.3s时间，即18帧
+                this.animateDrawArc(oldVal, val, 1, 18)
+            } else {
+                throw new Error('进度百分比的范围必须在1~100内')
+            }
         }
     },
     mounted() {
         const easingParams = this.easing.split(',').map(item => Number(item))
         this.easingFunc = BezierEasing(...easingParams);
-        this.$nextTick(() => {
-            this.initCanvas()
-        })
+        this.initCanvas()
+    },
+    beforeDestroy() {
+        window.cancelAnimationFrame(this.animationId)
     },
     methods: {
+        // 初始化canvas
         initCanvas() {
-            var canvas = this.$refs.canvasDemo;
-            var ctx = canvas.getContext('2d');
+            this.canvasInstance = this.$refs.canvasDemo;
+            this.ctx = this.canvasInstance.getContext('2d');
+            // 设置渐变色
             if (this.useGradient) {
-                this.gradient = ctx.createLinearGradient(this.circleRadius, 0, this.circleRadius, this.circleRadius * 2);
+                this.gradient = this.ctx.createLinearGradient(this.circleRadius, 0, this.circleRadius, this.circleRadius * 2);
                 this.lineColorStops.forEach(item => {
                     this.gradient.addColorStop(item.percent, item.color);
                 });
             }
-            const endDeg = this.getTargetDegByPercentage(this.startDeg, this.percentage)
             if (this.percentage === 0) {
-                this.animateDrawArc(canvas, ctx, this.startDeg, endDeg, 0, 0);
+                this.animateDrawArc(0, 0, 0, 0);
             } else {
                 if (this.animated) {
                     // 用动画来画动态内容
-                    this.animateDrawArc(canvas, ctx, this.startDeg, endDeg, 1, this.steps);
+                    this.animateDrawArc(0, this.percentage, 1, this.steps);
                 } else {
-                    this.animateDrawArc(canvas, ctx, this.startDeg, endDeg, this.steps, this.steps);
+                    this.animateDrawArc(0, this.percentage, this.steps, this.steps);
                 }
             }
         },
-        animateDrawArc(canvas, ctx, startDeg, endDeg, stepNo, stepTotal) {
-            window.requestAnimationFrame(() => {
-                ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
-                const nextDeg = this.getTargetDeg(startDeg, endDeg, stepNo, stepTotal);
-                const startArc = this.deg2Arc(startDeg);
-                const nextArc = this.deg2Arc(nextDeg);
-                // 画圆环
-                ctx.strokeStyle = this.circleColor;
-                ctx.lineWidth = this.circleWidth;
-                ctx.beginPath();
-                ctx.arc(this.outerRadius, this.outerRadius, this.circleRadius, 0, this.deg2Arc(360));
-                ctx.stroke();
-                // 画文字
-                if (this.showText) {
-                    ctx.font = `${this.fontSize}px Arial,"Microsoft YaHei"`
-                    ctx.fillStyle = this.fontColor;
-                    ctx.textAlign = 'center'
-                    ctx.textBaseline = 'middle'
-                    const currPercentage = stepTotal > 0 ? this.easingFunc(stepNo / stepTotal) * this.percentage : 0;
-                    let label;
-                    if (typeof this.format === 'function') {
-                        label = this.format(currPercentage)
-                    } else {
-                        label = Math.round(currPercentage) + '%'
-                    }
-                    ctx.fillText(label, canvas.clientWidth / 2, canvas.clientWidth / 2);
+        // 利用raf控制动画绘制
+        animateDrawArc(beginPercent, endPercent, stepNo, stepTotal) {
+            this.ctx.clearRect(0, 0, this.canvasInstance.clientWidth, this.canvasInstance.clientHeight);
+            const nextPercent = beginPercent + (endPercent - beginPercent) * stepNo / stepTotal
+            const nextDeg = this.getTargetDegByPercentage(nextPercent)
+            const startArc = this.deg2Arc(this.startDeg);
+            const nextArc = this.deg2Arc(nextDeg);
+            // 画圆环
+            this.ctx.strokeStyle = this.circleColor;
+            this.ctx.lineWidth = this.circleWidth;
+            this.ctx.beginPath();
+            this.ctx.arc(this.outerRadius, this.outerRadius, this.circleRadius, 0, this.deg2Arc(360));
+            this.ctx.stroke();
+            // 画文字
+            if (this.showText) {
+                this.ctx.font = `${this.fontSize}px Arial,"Microsoft YaHei"`
+                this.ctx.fillStyle = this.fontColor;
+                this.ctx.textAlign = 'center'
+                this.ctx.textBaseline = 'middle'
+                let label;
+                if (typeof this.format === 'function') {
+                    label = this.format(nextPercent)
+                } else {
+                    label = Math.round(nextPercent) + '%'
                 }
-                // 画进度弧线
-                if (stepTotal > 0) {
-                    ctx.strokeStyle = this.useGradient ? this.gradient : this.lineColor;
-                    ctx.lineWidth = this.lineWidth;
-                    ctx.beginPath();
-                    ctx.arc(this.outerRadius, this.outerRadius, this.circleRadius, startArc, nextArc);
-                    ctx.stroke();
-                }
-                // 画点
-                if (this.pointRadius > 0) {
-                    ctx.fillStyle = this.pointColor;
-                    const pointPosition = this.getPositionsByDeg(nextDeg);
-                    ctx.beginPath();
-                    ctx.arc(pointPosition.x + this.pointRadius, pointPosition.y + this.pointRadius, this.pointRadius, 0, this.deg2Arc(360));
-                    ctx.fill();
-                }
-                if (stepNo !== stepTotal) {
-                    stepNo++;
-                    this.animateDrawArc(canvas, ctx, startDeg, endDeg, stepNo, stepTotal)
-                }
-            })
-        },
-        // 顺时针方向，根据开始deg，结束deg，以及步进值step，求取目标deg
-        getTargetDeg(startDeg, endDeg, stepNo, stepTotal) {
-            if (stepTotal === 0) {
-                return startDeg
+                this.ctx.fillText(label, this.canvasInstance.clientWidth / 2, this.canvasInstance.clientWidth / 2);
             }
-            startDeg = startDeg % 360;
-            endDeg = endDeg % 360;
-            if (startDeg > endDeg) {
-                const diff = endDeg + 360 - startDeg
-                let nextDeg = startDeg + diff * this.easingFunc(stepNo / stepTotal)
-                if (nextDeg > 360) {
-                    nextDeg = nextDeg - 360
-                    return nextDeg > endDeg ? endDeg : nextDeg
-                }
-                return nextDeg
-            } else if (startDeg < endDeg) {
-                const diff = endDeg - startDeg
-                let nextDeg = startDeg + diff * this.easingFunc(stepNo / stepTotal)
-                if (nextDeg > endDeg) {
-                    return endDeg
-                } else if (nextDeg > 360) {
-                    return nextDeg - 360
-                }
-                return nextDeg
+            // 画进度弧线
+            if (stepTotal > 0) {
+                this.ctx.strokeStyle = this.useGradient ? this.gradient : this.lineColor;
+                this.ctx.lineWidth = this.lineWidth;
+                this.ctx.beginPath();
+                this.ctx.arc(this.outerRadius, this.outerRadius, this.circleRadius, startArc, nextArc);
+                this.ctx.stroke();
+            }
+            // 画点
+            if (this.pointRadius > 0) {
+                this.ctx.fillStyle = this.pointColor;
+                const pointPosition = this.getPositionsByDeg(nextDeg);
+                this.ctx.beginPath();
+                this.ctx.arc(pointPosition.x + this.pointRadius, pointPosition.y + this.pointRadius, this.pointRadius, 0, this.deg2Arc(360));
+                this.ctx.fill();
+            }
+            if (stepNo !== stepTotal) {
+                stepNo++;
+                this.animationId = window.requestAnimationFrame(this.animateDrawArc.bind(null, beginPercent, endPercent, stepNo, stepTotal))
             } else {
-                return startDeg + 360 * this.easingFunc(stepNo / stepTotal)
+                window.cancelAnimationFrame(this.animationId)
             }
         },
-        getTargetDegByPercentage(startDeg, percentage) {
-            return (startDeg + 360 * percentage / 100) % 360
+        // 根据开始角度和进度百分比求取目标角度
+        getTargetDegByPercentage(percentage) {
+            if (percentage === 100) {
+                return this.startDeg + 360
+            } else {
+                const targetDeg = (this.startDeg + 360 * percentage / 100) % 360
+                return targetDeg
+            }
         },
         // 根据角度获取点的位置
         getPositionsByDeg(deg) {

@@ -91,27 +91,45 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports) {
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+module.exports = _arrayLikeToArray;
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayWithoutHoles = __webpack_require__(2);
+var arrayWithoutHoles = __webpack_require__(3);
 
-var iterableToArray = __webpack_require__(3);
+var iterableToArray = __webpack_require__(4);
 
-var nonIterableSpread = __webpack_require__(4);
+var unsupportedIterableToArray = __webpack_require__(5);
+
+var nonIterableSpread = __webpack_require__(6);
 
 function _toConsumableArray(arr) {
-  return arrayWithoutHoles(arr) || iterableToArray(arr) || nonIterableSpread();
+  return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
 }
 
 module.exports = _toConsumableArray;
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports) {
 
 /**
@@ -224,61 +242,73 @@ module.exports = function bezier (mX1, mY1, mX2, mY2) {
 
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports) {
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(0);
 
 function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) {
-      arr2[i] = arr[i];
-    }
-
-    return arr2;
-  }
+  if (Array.isArray(arr)) return arrayLikeToArray(arr);
 }
 
 module.exports = _arrayWithoutHoles;
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports) {
 
 function _iterableToArray(iter) {
-  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
 }
 
 module.exports = _iterableToArray;
 
 /***/ }),
-/* 4 */
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(0);
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+
+module.exports = _unsupportedIterableToArray;
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports) {
 
 function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance");
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
 module.exports = _nonIterableSpread;
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/components/index.vue?vue&type=template&id=7363219c&
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/components/index.vue?vue&type=template&id=4fa4709a&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('canvas',{ref:"canvasDemo",attrs:{"width":_vm.canvasSize,"height":_vm.canvasSize}})}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/index.vue?vue&type=template&id=7363219c&
-
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/toConsumableArray.js
-var toConsumableArray = __webpack_require__(0);
+var toConsumableArray = __webpack_require__(1);
 var toConsumableArray_default = /*#__PURE__*/__webpack_require__.n(toConsumableArray);
 
 // EXTERNAL MODULE: ./node_modules/bezier-easing/src/index.js
-var src = __webpack_require__(1);
+var src = __webpack_require__(2);
 var src_default = /*#__PURE__*/__webpack_require__.n(src);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/components/index.vue?vue&type=script&lang=js&
@@ -323,7 +353,7 @@ var src_default = /*#__PURE__*/__webpack_require__.n(src);
     },
     useGradient: {
       type: Boolean,
-      "default": true
+      "default": false
     },
     lineColor: {
       type: String,
@@ -351,7 +381,7 @@ var src_default = /*#__PURE__*/__webpack_require__.n(src);
     },
     fontColor: {
       type: String,
-      "default": '#3B77E3'
+      "default": '#444'
     },
     pointRadius: {
       type: Number,
@@ -376,7 +406,7 @@ var src_default = /*#__PURE__*/__webpack_require__.n(src);
     duration: {
       type: Number,
       // 浏览器大约是60FPS，因此1s大约执行60次requestAnimationFrame
-      "default": 1
+      "default": 0.6
     },
     format: {
       type: Function
@@ -385,158 +415,136 @@ var src_default = /*#__PURE__*/__webpack_require__.n(src);
   data: function data() {
     return {
       gradient: null,
-      easingFunc: null
+      easingFunc: null,
+      animationId: null,
+      canvasInstance: null,
+      ctx: null
     };
   },
   computed: {
+    // 外围半径
     outerRadius: function outerRadius() {
       return this.pointRadius > 0 ? this.circleRadius + this.pointRadius : this.circleRadius + this.lineWidth / 2;
     },
+    // 画布大小
     canvasSize: function canvasSize() {
       return 2 * this.outerRadius + 'px';
     },
+    // 执行的总步数
     steps: function steps() {
       return this.duration * 60;
     }
   },
-  mounted: function mounted() {
-    var _this = this;
+  watch: {
+    percentage: function percentage(val, oldVal) {
+      if (val >= 0 && val <= 100) {
+        window.cancelAnimationFrame(this.animationId); // 更新进度条的时候，直接给定0.3s时间，即18帧
 
+        this.animateDrawArc(oldVal, val, 1, 18);
+      } else {
+        throw new Error('进度百分比的范围必须在1~100内');
+      }
+    }
+  },
+  mounted: function mounted() {
     var easingParams = this.easing.split(',').map(function (item) {
       return Number(item);
     });
     this.easingFunc = src_default.a.apply(void 0, toConsumableArray_default()(easingParams));
-    this.$nextTick(function () {
-      _this.initCanvas();
-    });
+    this.initCanvas();
+  },
+  beforeDestroy: function beforeDestroy() {
+    window.cancelAnimationFrame(this.animationId);
   },
   methods: {
+    // 初始化canvas
     initCanvas: function initCanvas() {
-      var _this2 = this;
+      var _this = this;
 
-      var canvas = this.$refs.canvasDemo;
-      var ctx = canvas.getContext('2d');
+      this.canvasInstance = this.$refs.canvasDemo;
+      this.ctx = this.canvasInstance.getContext('2d'); // 设置渐变色
 
       if (this.useGradient) {
-        this.gradient = ctx.createLinearGradient(this.circleRadius, 0, this.circleRadius, this.circleRadius * 2);
+        this.gradient = this.ctx.createLinearGradient(this.circleRadius, 0, this.circleRadius, this.circleRadius * 2);
         this.lineColorStops.forEach(function (item) {
-          _this2.gradient.addColorStop(item.percent, item.color);
+          _this.gradient.addColorStop(item.percent, item.color);
         });
       }
 
-      var endDeg = this.getTargetDegByPercentage(this.startDeg, this.percentage);
-
       if (this.percentage === 0) {
-        this.animateDrawArc(canvas, ctx, this.startDeg, endDeg, 0, 0);
+        this.animateDrawArc(0, 0, 0, 0);
       } else {
         if (this.animated) {
           // 用动画来画动态内容
-          this.animateDrawArc(canvas, ctx, this.startDeg, endDeg, 1, this.steps);
+          this.animateDrawArc(0, this.percentage, 1, this.steps);
         } else {
-          this.animateDrawArc(canvas, ctx, this.startDeg, endDeg, this.steps, this.steps);
+          this.animateDrawArc(0, this.percentage, this.steps, this.steps);
         }
       }
     },
-    animateDrawArc: function animateDrawArc(canvas, ctx, startDeg, endDeg, stepNo, stepTotal) {
-      var _this3 = this;
+    // 利用raf控制动画绘制
+    animateDrawArc: function animateDrawArc(beginPercent, endPercent, stepNo, stepTotal) {
+      this.ctx.clearRect(0, 0, this.canvasInstance.clientWidth, this.canvasInstance.clientHeight);
+      var nextPercent = beginPercent + (endPercent - beginPercent) * stepNo / stepTotal;
+      var nextDeg = this.getTargetDegByPercentage(nextPercent);
+      var startArc = this.deg2Arc(this.startDeg);
+      var nextArc = this.deg2Arc(nextDeg); // 画圆环
 
-      window.requestAnimationFrame(function () {
-        ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+      this.ctx.strokeStyle = this.circleColor;
+      this.ctx.lineWidth = this.circleWidth;
+      this.ctx.beginPath();
+      this.ctx.arc(this.outerRadius, this.outerRadius, this.circleRadius, 0, this.deg2Arc(360));
+      this.ctx.stroke(); // 画文字
 
-        var nextDeg = _this3.getTargetDeg(startDeg, endDeg, stepNo, stepTotal);
+      if (this.showText) {
+        this.ctx.font = "".concat(this.fontSize, "px Arial,\"Microsoft YaHei\"");
+        this.ctx.fillStyle = this.fontColor;
+        this.ctx.textAlign = 'center';
+        this.ctx.textBaseline = 'middle';
+        var label;
 
-        var startArc = _this3.deg2Arc(startDeg);
-
-        var nextArc = _this3.deg2Arc(nextDeg); // 画圆环
-
-
-        ctx.strokeStyle = _this3.circleColor;
-        ctx.lineWidth = _this3.circleWidth;
-        ctx.beginPath();
-        ctx.arc(_this3.outerRadius, _this3.outerRadius, _this3.circleRadius, 0, _this3.deg2Arc(360));
-        ctx.stroke(); // 画文字
-
-        if (_this3.showText) {
-          ctx.font = "".concat(_this3.fontSize, "px Arial,\"Microsoft YaHei\"");
-          ctx.fillStyle = _this3.fontColor;
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          var currPercentage = stepTotal > 0 ? _this3.easingFunc(stepNo / stepTotal) * _this3.percentage : 0;
-          var label;
-
-          if (typeof _this3.format === 'function') {
-            label = _this3.format(currPercentage);
-          } else {
-            label = Math.round(currPercentage) + '%';
-          }
-
-          ctx.fillText(label, canvas.clientWidth / 2, canvas.clientWidth / 2);
-        } // 画进度弧线
-
-
-        if (stepTotal > 0) {
-          ctx.strokeStyle = _this3.useGradient ? _this3.gradient : _this3.lineColor;
-          ctx.lineWidth = _this3.lineWidth;
-          ctx.beginPath();
-          ctx.arc(_this3.outerRadius, _this3.outerRadius, _this3.circleRadius, startArc, nextArc);
-          ctx.stroke();
-        } // 画点
-
-
-        if (_this3.pointRadius > 0) {
-          ctx.fillStyle = _this3.pointColor;
-
-          var pointPosition = _this3.getPositionsByDeg(nextDeg);
-
-          ctx.beginPath();
-          ctx.arc(pointPosition.x + _this3.pointRadius, pointPosition.y + _this3.pointRadius, _this3.pointRadius, 0, _this3.deg2Arc(360));
-          ctx.fill();
+        if (typeof this.format === 'function') {
+          label = this.format(nextPercent);
+        } else {
+          label = Math.round(nextPercent) + '%';
         }
 
-        if (stepNo !== stepTotal) {
-          stepNo++;
+        this.ctx.fillText(label, this.canvasInstance.clientWidth / 2, this.canvasInstance.clientWidth / 2);
+      } // 画进度弧线
 
-          _this3.animateDrawArc(canvas, ctx, startDeg, endDeg, stepNo, stepTotal);
-        }
-      });
-    },
-    // 顺时针方向，根据开始deg，结束deg，以及步进值step，求取目标deg
-    getTargetDeg: function getTargetDeg(startDeg, endDeg, stepNo, stepTotal) {
-      if (stepTotal === 0) {
-        return startDeg;
+
+      if (stepTotal > 0) {
+        this.ctx.strokeStyle = this.useGradient ? this.gradient : this.lineColor;
+        this.ctx.lineWidth = this.lineWidth;
+        this.ctx.beginPath();
+        this.ctx.arc(this.outerRadius, this.outerRadius, this.circleRadius, startArc, nextArc);
+        this.ctx.stroke();
+      } // 画点
+
+
+      if (this.pointRadius > 0) {
+        this.ctx.fillStyle = this.pointColor;
+        var pointPosition = this.getPositionsByDeg(nextDeg);
+        this.ctx.beginPath();
+        this.ctx.arc(pointPosition.x + this.pointRadius, pointPosition.y + this.pointRadius, this.pointRadius, 0, this.deg2Arc(360));
+        this.ctx.fill();
       }
 
-      startDeg = startDeg % 360;
-      endDeg = endDeg % 360;
-
-      if (startDeg > endDeg) {
-        var diff = endDeg + 360 - startDeg;
-        var nextDeg = startDeg + diff * this.easingFunc(stepNo / stepTotal);
-
-        if (nextDeg > 360) {
-          nextDeg = nextDeg - 360;
-          return nextDeg > endDeg ? endDeg : nextDeg;
-        }
-
-        return nextDeg;
-      } else if (startDeg < endDeg) {
-        var _diff = endDeg - startDeg;
-
-        var _nextDeg = startDeg + _diff * this.easingFunc(stepNo / stepTotal);
-
-        if (_nextDeg > endDeg) {
-          return endDeg;
-        } else if (_nextDeg > 360) {
-          return _nextDeg - 360;
-        }
-
-        return _nextDeg;
+      if (stepNo !== stepTotal) {
+        stepNo++;
+        this.animationId = window.requestAnimationFrame(this.animateDrawArc.bind(null, beginPercent, endPercent, stepNo, stepTotal));
       } else {
-        return startDeg + 360 * this.easingFunc(stepNo / stepTotal);
+        window.cancelAnimationFrame(this.animationId);
       }
     },
-    getTargetDegByPercentage: function getTargetDegByPercentage(startDeg, percentage) {
-      return (startDeg + 360 * percentage / 100) % 360;
+    // 根据开始角度和进度百分比求取目标角度
+    getTargetDegByPercentage: function getTargetDegByPercentage(percentage) {
+      if (percentage === 100) {
+        return this.startDeg + 360;
+      } else {
+        var targetDeg = (this.startDeg + 360 * percentage / 100) % 360;
+        return targetDeg;
+      }
     },
     // 根据角度获取点的位置
     getPositionsByDeg: function getPositionsByDeg(deg) {
@@ -648,7 +656,7 @@ function normalizeComponent (
       // for template-only hot-reload because in that case the render fn doesn't
       // go through the normalizer
       options._injectStyles = hook
-      // register for functioal component in vue file
+      // register for functional component in vue file
       var originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
