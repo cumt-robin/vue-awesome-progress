@@ -83,7 +83,7 @@ export default {
             // ease-in
             default: '0.42,0,1,1',
             validator: function(value) {
-                return /^(\d+(\.\d+)?,){3}\d+(\.\d+)?$/.test(value)
+                return /^(\-?\d+(\.\d+)?,){3}\-?\d+(\.\d+)?$/.test(value)
             }
         },
         duration: {
@@ -132,6 +132,7 @@ export default {
     mounted() {
         const easingParams = this.easing.split(',').map(item => Number(item))
         this.easingFunc = BezierEasing(...easingParams);
+        console.log(easingParams)
         this.initCanvas()
     },
     beforeDestroy() {
@@ -163,7 +164,7 @@ export default {
         // 利用raf控制动画绘制
         animateDrawArc(beginPercent, endPercent, stepNo, stepTotal) {
             this.ctx.clearRect(0, 0, this.canvasInstance.clientWidth, this.canvasInstance.clientHeight);
-            const nextPercent = beginPercent + (endPercent - beginPercent) * stepNo / stepTotal
+            const nextPercent = beginPercent + (endPercent - beginPercent) * this.easingFunc(stepNo / stepTotal)
             const nextDeg = this.getTargetDegByPercentage(nextPercent)
             const startArc = this.deg2Arc(this.startDeg);
             const nextArc = this.deg2Arc(nextDeg);

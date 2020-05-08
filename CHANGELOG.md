@@ -1,3 +1,7 @@
+## [1.9.1](https://github.com/cumt-robin/vue-awesome-progress/compare/v1.9.0...v1.9.1) (2020-05-08)
+
+
+
 # [1.9.0](https://github.com/cumt-robin/vue-awesome-progress/compare/v1.4.1...v1.9.0) (2020-04-10)
 
 

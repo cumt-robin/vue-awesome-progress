@@ -9,7 +9,7 @@
             :point-radius="0"
             line-color="#ff4949"
             :circle-radius="66"
-            easing="0,0,.45,.53"
+            easing="0,0,0.45,0.53"
         />
         <vue-awesome-progress
             :circle-width="6"
@@ -18,7 +18,7 @@
             :font-size="24"
             :percentage="percent"
             :circle-radius="80"
-            easing="0,0,.35,.43"
+            easing="0.17,0.67,0.97,0.11"
         />
         <div class="btns__wrapper">
             <button @click="decrease">-</button>
