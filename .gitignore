@@ -1,4 +1,1 @@
-node_modules/
-npm-debug.log*
-/demo
-/test-babel
+node_modules
