@@ -10,7 +10,7 @@
     "build:demo": "cross-env NODE_ENV=production IS_DEMO=true webpack --progress --config build/webpack.demo.conf.js",
     "analyze:build": "cross-env report=true npm run build",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
-    "deploy": "git subtree push --prefix=demo origin gh-pages"
+    "deploy:demo": "build:demo && git subtree push --prefix=demo origin gh-pages"
   },
   "keywords": [
     "vue-awesome-progress",
