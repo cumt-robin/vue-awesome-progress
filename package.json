@@ -7,11 +7,11 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server --progress --config build/webpack.dev.conf.js",
     "build": "cross-env NODE_ENV=production webpack --progress --config build/webpack.prod.conf.js",
     "postbuild": "cross-env NODE_ENV=production webpack --progress --config build/webpack.minify.conf.js",
-    "build:demo": "cross-env NODE_ENV=production IS_DEMO=true webpack --progress --config build/webpack.demo.conf.js",
-    "analyze:build": "cross-env report=true npm run build",
+    "build-demo": "cross-env NODE_ENV=production IS_DEMO=true webpack --progress --config build/webpack.demo.conf.js",
+    "analyze-build": "cross-env report=true npm run build",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
     "push-demo": "git add demo && git commit -m '更新demo构建结果' && git push",
-    "deploy": "npm run build:demo && npm run push-demo && git subtree push --prefix=demo origin gh-pages"
+    "deploy-pages": "npm run build-demo && npm run push-demo && git subtree push --prefix=demo origin gh-pages"
   },
   "keywords": [
     "vue-awesome-progress",
