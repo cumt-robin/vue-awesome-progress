@@ -7,13 +7,83 @@
     <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
     <script src="./dist/vue-awesome-progress.min.js"></script>
     <title>vue-awesome-progress</title>
+    <style>
+        .btns__wrapper {
+            padding: 20px 8px;
+        }
+        button {
+            background-color: #3b77e3;
+            color: #fff;
+            padding: 4px 16px;
+            outline: none;
+            border: 1px solid #3b77e3;
+            font-size: 30px;
+            font-weight: 700;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        button+button {
+            margin-left: 10px;
+        }
+    </style>
 </head>
 <body>
-    <div id="app"></div>
+    <div id="app"> 
+        <div>
+            <vue-awesome-progress
+                :circle-width="4"
+                :line-width="8"
+                :percentage="75"
+                :font-size="18"
+                :use-gradient="false"
+                :point-radius="0"
+                line-color="#ff4949"
+                :circle-radius="66"
+                easing="0,0,0.45,0.53"
+            />
+        </div>
+        
+        <div>
+            <vue-awesome-progress
+                :circle-width="6"
+                :line-width="8"
+                :duration="0.6"
+                :font-size="24"
+                :percentage="percent"
+                :circle-radius="80"
+                easing="0.17,0.67,0.97,0.11"
+            />
+        </div>
+
+        <div class="btns__wrapper">
+            <button @click="decrease">-</button>
+            <button @click="increase">+</button>
+        </div>
+    
+    </div>
     <script>
-        new Vue({
+        var app = new Vue({
             el: "#app",
-            template: '<vue-awesome-progress :percentage="40"></vue-awesome-progress>'
+            data: {
+                percent: 60
+            },
+            methods: {
+                increase: function() {
+                    this.percent += 10;
+                    if (this.percent > 100) {
+                        this.percent = 100;
+                    }
+                },
+                decrease: function() {
+                    this.percent -= 10;
+                    if (this.percent < 0) {
+                        this.percent = 0;
+                    }
+                }
+            }
         })
     </script>
 </body>
