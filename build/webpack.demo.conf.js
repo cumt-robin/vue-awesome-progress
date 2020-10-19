@@ -33,6 +33,6 @@ module.exports = merge(baseWebpackConfig, {
                 // https://github.com/kangax/html-minifier#options-quick-reference
             }
         }),
-        new CleanWebpackPlugin()
+        // new CleanWebpackPlugin()
     ]
 })
