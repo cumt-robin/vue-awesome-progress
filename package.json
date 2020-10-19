@@ -11,7 +11,7 @@
     "analyze:build": "cross-env report=true npm run build",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
     "push-demo": "git add demo && git commit -m '更新demo构建结果' && git push",
-    "deploy": "npm run build:demo && npm run push-demo && git add git subtree push --prefix=demo origin gh-pages"
+    "deploy": "npm run build:demo && npm run push-demo && git subtree push --prefix=demo origin gh-pages"
   },
   "keywords": [
     "vue-awesome-progress",
