@@ -1,3 +1,10 @@
+/*
+ * @Author: 蒋文斌
+ * @Date: 2019-12-07 23:06:33
+ * @LastEditors: 蒋文斌
+ * @LastEditTime: 2021-04-03 22:25:48
+ * @Description: 自动生成
+ */
 const path = require("path")
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -33,6 +40,6 @@ module.exports = merge(baseWebpackConfig, {
                 // https://github.com/kangax/html-minifier#options-quick-reference
             }
         }),
-        // new CleanWebpackPlugin()
+        new CleanWebpackPlugin()
     ]
 })

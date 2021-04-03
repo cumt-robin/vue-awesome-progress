@@ -298,10 +298,12 @@ module.exports = _nonIterableSpread;
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/components/index.vue?vue&type=template&id=4fa4709a&
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/components/index.vue?vue&type=template&id=51c3ab3a&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('canvas',{ref:"canvasDemo",attrs:{"width":_vm.canvasSize,"height":_vm.canvasSize}})}
 var staticRenderFns = []
 
+
+// CONCATENATED MODULE: ./src/components/index.vue?vue&type=template&id=51c3ab3a&
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/toConsumableArray.js
 var toConsumableArray = __webpack_require__(1);
@@ -400,7 +402,7 @@ var src_default = /*#__PURE__*/__webpack_require__.n(src);
       // ease-in
       "default": '0.42,0,1,1',
       validator: function validator(value) {
-        return /^(\d+(\.\d+)?,){3}\d+(\.\d+)?$/.test(value);
+        return /^(\-?\d+(\.\d+)?,){3}\-?\d+(\.\d+)?$/.test(value);
       }
     },
     duration: {
@@ -451,6 +453,7 @@ var src_default = /*#__PURE__*/__webpack_require__.n(src);
       return Number(item);
     });
     this.easingFunc = src_default.a.apply(void 0, toConsumableArray_default()(easingParams));
+    console.log(easingParams);
     this.initCanvas();
   },
   beforeDestroy: function beforeDestroy() {
@@ -485,7 +488,7 @@ var src_default = /*#__PURE__*/__webpack_require__.n(src);
     // 利用raf控制动画绘制
     animateDrawArc: function animateDrawArc(beginPercent, endPercent, stepNo, stepTotal) {
       this.ctx.clearRect(0, 0, this.canvasInstance.clientWidth, this.canvasInstance.clientHeight);
-      var nextPercent = beginPercent + (endPercent - beginPercent) * stepNo / stepTotal;
+      var nextPercent = beginPercent + (endPercent - beginPercent) * this.easingFunc(stepNo / stepTotal);
       var nextDeg = this.getTargetDegByPercentage(nextPercent);
       var startArc = this.deg2Arc(this.startDeg);
       var nextArc = this.deg2Arc(nextDeg); // 画圆环
