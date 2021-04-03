@@ -1,6 +1,6 @@
 {
     "name": "vue-awesome-progress",
-    "version": "1.9.2",
+    "version": "1.9.3",
     "description": "a progress component based on vue and canvas, which supports customized animation and many attributes",
     "main": "dist/vue-awesome-progress.js",
     "scripts": {
@@ -11,7 +11,7 @@
         "analyze-build": "cross-env report=true npm run build",
         "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
         "push-demo": "git add demo && git commit -m 更新demo构建结果 && git push",
-        "deploy-pages": "npm run build-demo && npm run push-demo && git subtree push --prefix=demo origin gh-pages"
+        "deploy-pages": "cross-env PUBLIC_PATH=/vue-awesome-progress/ npm run build-demo && npm run push-demo && git subtree push --prefix=demo origin gh-pages"
     },
     "keywords": [
         "vue-awesome-progress",
@@ -21,10 +21,15 @@
         "canvas"
     ],
     "author": "tusi666",
+    "homepage": "https://cumt-robin.github.io/vue-awesome-progress",
     "license": "MIT",
     "repository": {
         "type": "git",
         "url": "https://github.com/cumt-robin/vue-awesome-progress.git"
+    },
+    "bugs": {
+        "url": "https://github.com/cumt-robin/vue-awesome-progress/issues",
+        "email": "cumtrobin@163.com"
     },
     "dependencies": {
         "@babel/runtime": "^7.9.2",

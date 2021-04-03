@@ -2,7 +2,7 @@
  * @Author: 蒋文斌
  * @Date: 2019-12-07 23:06:33
  * @LastEditors: 蒋文斌
- * @LastEditTime: 2021-04-03 22:25:48
+ * @LastEditTime: 2021-04-03 23:41:32
  * @Description: 自动生成
  */
 const path = require("path")
@@ -21,7 +21,7 @@ module.exports = merge(baseWebpackConfig, {
     output: {
         path: resolvePath('demo'),
         filename: "[name].bundle.js",
-        publicPath: '/'
+        publicPath: process.env.PUBLIC_PATH || '/'
     },
     devtool: 'source-map',
     plugins: [
