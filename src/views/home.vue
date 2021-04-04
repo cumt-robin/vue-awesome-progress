@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <vue-awesome-progress
+        <!-- <vue-awesome-progress
             :circle-width="4"
             :line-width="8"
             :percentage="75"
@@ -10,7 +10,7 @@
             line-color="#ff4949"
             :circle-radius="66"
             easing="0,0,0.45,0.53"
-        />
+        /> -->
         <vue-awesome-progress
             :circle-width="6"
             :line-width="8"

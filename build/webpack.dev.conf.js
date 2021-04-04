@@ -20,7 +20,7 @@ module.exports = merge(baseWebpackConfig, {
             errors: true
         }
     },
-    devtool: 'cheap-module-eval-source-map',
+    devtool: 'eval-source-map',
     module: {
         rules: [
             {

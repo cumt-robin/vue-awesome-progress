@@ -2,32 +2,32 @@
  * @Author: 蒋文斌
  * @Date: 2020-04-10 14:00:12
  * @LastEditors: 蒋文斌
- * @LastEditTime: 2021-04-03 22:05:54
+ * @LastEditTime: 2021-04-04 15:35:53
  * @Description: 自动生成
  */
 const path = require("path");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+const cssLoaders = [
+    process.NODE_ENV === 'development' ? 'vue-style-laoder' : {
+        loader: MiniCssExtractPlugin.loader,
+        options: {
+            esModule: false
+        }
+    },
+    "css-loader",
+]
+
 const styleLoaders = [
     {
         test: /\.css$/,
-        use: [
-            {
-                loader: MiniCssExtractPlugin.loader,
-            },
-            "css-loader",
-        ],
+        use: cssLoaders,
     },
     {
         test: /\.s[ac]ss$/,
         use: [
-            // Creates `style` nodes from JS strings
-            {
-                loader: MiniCssExtractPlugin.loader,
-            },
-            // Translates CSS into CommonJS
-            "css-loader",
+            ...cssLoaders,
             // Compiles Sass to CSS
             "sass-loader",
         ],
@@ -51,7 +51,7 @@ function resolvePath(dir) {
 
 module.exports = {
     context: resolvePath(""),
-    devtool: "cheap-module-eval-source-map",
+    devtool: "source-map",
     resolve: {
         alias: {
             "@": resolvePath("src"),

@@ -1,9 +1,11 @@
 <template>
-    <canvas ref="canvasDemo" :width="canvasSize" :height="canvasSize" />
+    <canvas ref="canvasDemo" :style="{width: canvasSize, height: canvasSize}" />
 </template>
 
 <script>
 import BezierEasing from "bezier-easing";
+import { debounce } from "lodash-es";
+
 export default {
     name: 'VueAwesomeProgress',
     props: {
@@ -109,7 +111,7 @@ export default {
         outerRadius() {
             return this.pointRadius > 0 ? (this.circleRadius + this.pointRadius) : (this.circleRadius + this.lineWidth / 2)
         },
-        // 画布大小
+        // 画布大小（逻辑像素）
         canvasSize() {
             return 2 * this.outerRadius + 'px'
         },
@@ -132,17 +134,18 @@ export default {
     mounted() {
         const easingParams = this.easing.split(',').map(item => Number(item))
         this.easingFunc = BezierEasing(...easingParams);
-        console.log(easingParams)
         this.initCanvas()
     },
     beforeDestroy() {
         window.cancelAnimationFrame(this.animationId)
+        window.removeEventListener('resize', this.handleResize)
     },
     methods: {
         // 初始化canvas
         initCanvas() {
             this.canvasInstance = this.$refs.canvasDemo;
             this.ctx = this.canvasInstance.getContext('2d');
+
             // 设置渐变色
             if (this.useGradient) {
                 this.gradient = this.ctx.createLinearGradient(this.circleRadius, 0, this.circleRadius, this.circleRadius * 2);
@@ -150,6 +153,28 @@ export default {
                     this.gradient.addColorStop(item.percent, item.color);
                 });
             }
+
+            // 处理dpx
+            this.handleDpr();
+
+            // 监控resize
+            window.addEventListener('resize', this.handleResize)
+
+            this.renderContent();
+        },
+        handleResize: debounce(function() {
+            this.handleDpr();
+            this.renderContent();
+        }, 300),
+        handleDpr() {
+            const dpr = Math.max(window.devicePixelRatio, 1);
+            // 调整画布物理像素
+            this.canvasInstance.width = this.outerRadius * 2 * dpr;
+            this.canvasInstance.height = this.outerRadius * 2 * dpr;
+            // 同时用scale处理倍率
+            this.ctx.scale(dpr, dpr);
+        },
+        renderContent() {
             if (this.percentage === 0) {
                 this.animateDrawArc(0, 0, 0, 0);
             } else {
@@ -163,7 +188,7 @@ export default {
         },
         // 利用raf控制动画绘制
         animateDrawArc(beginPercent, endPercent, stepNo, stepTotal) {
-            this.ctx.clearRect(0, 0, this.canvasInstance.clientWidth, this.canvasInstance.clientHeight);
+            this.ctx.clearRect(0, 0, this.canvasInstance.width, this.canvasInstance.height);
             const nextPercent = beginPercent + (endPercent - beginPercent) * this.easingFunc(stepNo / stepTotal)
             const nextDeg = this.getTargetDegByPercentage(nextPercent)
             const startArc = this.deg2Arc(this.startDeg);
@@ -186,12 +211,13 @@ export default {
                 } else {
                     label = Math.round(nextPercent) + '%'
                 }
-                this.ctx.fillText(label, this.canvasInstance.clientWidth / 2, this.canvasInstance.clientWidth / 2);
+                this.ctx.fillText(label, this.outerRadius, this.outerRadius);
             }
             // 画进度弧线
             if (stepTotal > 0) {
                 this.ctx.strokeStyle = this.useGradient ? this.gradient : this.lineColor;
                 this.ctx.lineWidth = this.lineWidth;
+                this.ctx.lineCap = "round";
                 this.ctx.beginPath();
                 this.ctx.arc(this.outerRadius, this.outerRadius, this.circleRadius, startArc, nextArc);
                 this.ctx.stroke();

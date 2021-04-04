@@ -1,6 +1,6 @@
 {
     "name": "vue-awesome-progress",
-    "version": "1.9.5",
+    "version": "1.9.6",
     "description": "a progress component based on vue and canvas, which supports customized animation and many attributes",
     "files": [
         "dist"
@@ -12,9 +12,9 @@
         "postbuild": "cross-env NODE_ENV=production webpack --progress --config build/webpack.minify.conf.js",
         "analyze-build": "cross-env report=true npm run build",
         "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
-        "build-example": "cross-env NODE_ENV=production IS_EXAMPLE=true webpack --progress --config build/webpack.example.conf.js",
-        "push-example": "git add example && git commit -m 更新example构建结果 && git push",
-        "deploy-pages": "cross-env PUBLIC_PATH=/vue-awesome-progress/ npm run build-example && npm run push-example && git subtree push --prefix=example origin gh-pages"
+        "build-example": "cross-env NODE_ENV=production IS_EXAMPLE=true PUBLIC_PATH=/vue-awesome-progress/ webpack --progress --config build/webpack.example.conf.js",
+        "push-all": "git add . && git commit -m 一键commit && git push",
+        "deploy-pages": "npm run build-example && git subtree push --prefix=example origin gh-pages"
     },
     "keywords": [
         "vue-awesome-progress",
@@ -34,7 +34,8 @@
     "dependencies": {
         "@babel/runtime": "^7.9.2",
         "bezier-easing": "^2.1.0",
-        "core-js": "^3.6.4"
+        "core-js": "^3.6.4",
+        "lodash-es": "^4.17.21"
     },
     "peerDependencies": {
         "vue": "^2.6.12"
