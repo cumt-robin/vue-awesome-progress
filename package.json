@@ -1,17 +1,20 @@
 {
     "name": "vue-awesome-progress",
-    "version": "1.9.3",
+    "version": "1.9.4",
     "description": "a progress component based on vue and canvas, which supports customized animation and many attributes",
+    "files": [
+        "dist"
+    ],
     "main": "dist/vue-awesome-progress.js",
     "scripts": {
         "dev": "cross-env NODE_ENV=development webpack-dev-server --progress --config build/webpack.dev.conf.js",
         "build": "cross-env NODE_ENV=production webpack --progress --config build/webpack.prod.conf.js",
         "postbuild": "cross-env NODE_ENV=production webpack --progress --config build/webpack.minify.conf.js",
-        "build-demo": "cross-env NODE_ENV=production IS_DEMO=true webpack --progress --config build/webpack.demo.conf.js",
+        "build-example": "cross-env NODE_ENV=production IS_EXAMPLE=true webpack --progress --config build/webpack.example.conf.js",
         "analyze-build": "cross-env report=true npm run build",
         "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
-        "push-demo": "git add demo && git commit -m 更新demo构建结果 && git push",
-        "deploy-pages": "cross-env PUBLIC_PATH=/vue-awesome-progress/ npm run build-demo && npm run push-demo && git subtree push --prefix=demo origin gh-pages"
+        "push-example": "git add example && git commit -m 更新example构建结果 && git push",
+        "deploy-pages": "cross-env PUBLIC_PATH=/vue-awesome-progress/ npm run build-example && npm run push-example && git subtree push --prefix=example origin gh-pages"
     },
     "keywords": [
         "vue-awesome-progress",
@@ -27,10 +30,7 @@
         "type": "git",
         "url": "https://github.com/cumt-robin/vue-awesome-progress.git"
     },
-    "bugs": {
-        "url": "https://github.com/cumt-robin/vue-awesome-progress/issues",
-        "email": "cumtrobin@163.com"
-    },
+    "bugs": "https://github.com/cumt-robin/vue-awesome-progress/issues",
     "dependencies": {
         "@babel/runtime": "^7.9.2",
         "bezier-easing": "^2.1.0",

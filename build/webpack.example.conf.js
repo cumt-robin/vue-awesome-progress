@@ -19,7 +19,7 @@ module.exports = merge(baseWebpackConfig, {
     mode: 'production',
     entry: './src/main.js',
     output: {
-        path: resolvePath('demo'),
+        path: resolvePath('example'),
         filename: "[name].bundle.js",
         publicPath: process.env.PUBLIC_PATH || '/'
     },

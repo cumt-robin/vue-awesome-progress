@@ -1,3 +1,10 @@
+/*
+ * @Author: 蒋文斌
+ * @Date: 2019-12-13 14:23:25
+ * @LastEditors: 蒋文斌
+ * @LastEditTime: 2021-04-04 00:37:18
+ * @Description: 自动生成
+ */
 const buildConfig = {
     presets: [
         [
@@ -34,4 +41,4 @@ const devConfig = {
     ]
 }
 
-module.exports = (process.env.NODE_ENV === 'development' || process.env.IS_DEMO) ? devConfig : buildConfig
+module.exports = (process.env.NODE_ENV === 'development' || process.env.IS_EXAMPLE) ? devConfig : buildConfig
