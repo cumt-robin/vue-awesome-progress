@@ -1,3 +1,12 @@
+## [1.9.7](https://github.com/cumt-robin/vue-awesome-progress/compare/v1.9.6...v1.9.7) (2021-04-04)
+
+
+### Bug Fixes
+
+* debounce问题 ([8fc3839](https://github.com/cumt-robin/vue-awesome-progress/commit/8fc3839fd7d969a45ba20033f79ae36b0cd18da3))
+
+
+
 ## [1.9.1](https://github.com/cumt-robin/vue-awesome-progress/compare/v1.9.0...v1.9.1) (2020-05-08)
 
 

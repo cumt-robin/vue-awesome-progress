@@ -1,6 +1,6 @@
 {
     "name": "vue-awesome-progress",
-    "version": "1.9.6",
+    "version": "1.9.7",
     "description": "a progress component based on vue and canvas, which supports customized animation and many attributes",
     "files": [
         "dist"
