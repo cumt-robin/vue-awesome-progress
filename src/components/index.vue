@@ -131,6 +131,9 @@ export default {
             }
         }
     },
+    created() {
+	    this.handleResize = debounce(this.handleResize, 300)
+    },
     mounted() {
         const easingParams = this.easing.split(',').map(item => Number(item))
         this.easingFunc = BezierEasing(...easingParams);
@@ -162,10 +165,10 @@ export default {
 
             this.renderContent();
         },
-        handleResize: debounce(function() {
+        handleResize() {
             this.handleDpr();
             this.renderContent();
-        }, 300),
+        },
         handleDpr() {
             const dpr = Math.max(window.devicePixelRatio, 1);
             // 调整画布物理像素
