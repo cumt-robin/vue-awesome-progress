@@ -1,1 +1,41 @@
-<!DOCTYPE html><html lang=zh-Hans><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=X-UA-Compatible content="ie=edge"><title>vue-awesome-progress</title><link rel="shortcut icon" href=/vue-awesome-progress/favicon.ico><link href=/vue-awesome-progress/static/css/main.3c39263f0d2c498a0b49.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=/vue-awesome-progress/main.bundle.js></script></body></html>
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>vue-awesome-progress | 简约给力的Canvas环形进度条组件</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    
+    <meta name="description" content="基于Vue框架开发的Canvas环形进度条组件，在效果层面提供了比较多的配置能力，除了颜色什么的，动画效果也可以自定义哦。">
+    
+    <link rel="preload" href="/vue-awesome-progress/assets/css/0.styles.e3817425.css" as="style"><link rel="preload" href="/vue-awesome-progress/assets/js/app.0fac8c76.js" as="script"><link rel="preload" href="/vue-awesome-progress/assets/js/2.0563adcd.js" as="script"><link rel="preload" href="/vue-awesome-progress/assets/js/9.ac366bf1.js" as="script"><link rel="prefetch" href="/vue-awesome-progress/assets/js/10.9fb1a6cc.js"><link rel="prefetch" href="/vue-awesome-progress/assets/js/11.db824c4d.js"><link rel="prefetch" href="/vue-awesome-progress/assets/js/12.4a4b2c73.js"><link rel="prefetch" href="/vue-awesome-progress/assets/js/3.210c7925.js"><link rel="prefetch" href="/vue-awesome-progress/assets/js/4.5e660851.js"><link rel="prefetch" href="/vue-awesome-progress/assets/js/5.849f4fb0.js"><link rel="prefetch" href="/vue-awesome-progress/assets/js/6.3b86ffdb.js"><link rel="prefetch" href="/vue-awesome-progress/assets/js/7.573e2494.js"><link rel="prefetch" href="/vue-awesome-progress/assets/js/8.1afed4d1.js">
+    <link rel="stylesheet" href="/vue-awesome-progress/assets/css/0.styles.e3817425.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/vue-awesome-progress/" class="home-link router-link-exact-active router-link-active"><img src="/vue-awesome-progress/assets/img/logo.png" alt="vue-awesome-progress | 简约给力的Canvas环形进度条组件" class="logo"> <span class="site-name can-hide">vue-awesome-progress | 简约给力的Canvas环形进度条组件</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/vue-awesome-progress/" class="nav-link router-link-exact-active router-link-active">
+  首页
+</a></div><div class="nav-item"><a href="/vue-awesome-progress/guide/" class="nav-link">
+  使用指南
+</a></div><div class="nav-item"><a href="/vue-awesome-progress/demo/" class="nav-link">
+  示例
+</a></div> <a href="https://github.com/cumt-robin/vue-awesome-progress" target="_blank" rel="noopener noreferrer" class="repo-link">
+    查看源码
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/vue-awesome-progress/" class="nav-link router-link-exact-active router-link-active">
+  首页
+</a></div><div class="nav-item"><a href="/vue-awesome-progress/guide/" class="nav-link">
+  使用指南
+</a></div><div class="nav-item"><a href="/vue-awesome-progress/demo/" class="nav-link">
+  示例
+</a></div> <a href="https://github.com/cumt-robin/vue-awesome-progress" target="_blank" rel="noopener noreferrer" class="repo-link">
+    查看源码
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <!----> </aside> <main aria-labelledby="main-title" class="home"><header class="hero"><img src="/vue-awesome-progress/assets/img/logo.png" alt="hero"> <h1 id="main-title">
+      vue-awesome-progress
+    </h1> <!----> <p class="action"><a href="/vue-awesome-progress/guide/" class="nav-link action-button">
+  快速上手 →
+</a></p></header> <div class="features"><div class="feature"><h2>上手门槛低</h2> <p>通过 npm 安装，低成本上手，简单配置即可使用。</p></div><div class="feature"><h2>Vue 驱动</h2> <p>拥抱 Vue 生态。</p></div><div class="feature"><h2>高性能</h2> <p>基于 Canvas 绘图，纵享 GPU 加速带来的丝滑体验。</p></div></div> <div class="theme-default-content custom content__default"><h3 id="画进度条-可以很轻松"><a href="#画进度条-可以很轻松" class="header-anchor">#</a> 画进度条，可以很轻松</h3> <div class="language-shell line-numbers-mode"><pre class="language-shell"><code><span class="token function">npm</span> <span class="token function">install</span> --save vue-awesome-progress
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h3 id="示例"><a href="#示例" class="header-anchor">#</a> 示例</h3> <p><a href="/vue-awesome-progress/demo/">一个可交互的示例</a></p> <div class="custom-block tip"><p class="custom-block-title">TIP</p> <p>已为您解决高清屏模糊问题，请放心使用！</p></div></div> <div class="footer">
+    MIT Licensed | Copyright © 2021-present Robin Jang
+  </div></main></div><div class="global-ui"></div></div>
+    <script src="/vue-awesome-progress/assets/js/app.0fac8c76.js" defer></script><script src="/vue-awesome-progress/assets/js/2.0563adcd.js" defer></script><script src="/vue-awesome-progress/assets/js/9.ac366bf1.js" defer></script>
+  </body>
+</html>

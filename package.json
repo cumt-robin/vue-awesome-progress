@@ -7,14 +7,16 @@
     ],
     "main": "dist/vue-awesome-progress.js",
     "scripts": {
+        "docs:dev": "vuepress dev docs",
+        "docs:build": "vuepress build docs",
         "dev": "cross-env NODE_ENV=development webpack-dev-server --progress --config build/webpack.dev.conf.js",
         "build": "cross-env NODE_ENV=production webpack --progress --config build/webpack.prod.conf.js",
         "postbuild": "cross-env NODE_ENV=production webpack --progress --config build/webpack.minify.conf.js",
-        "analyze-build": "cross-env report=true npm run build",
+        "analyze": "cross-env report=true npm run build",
         "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
-        "build-example": "cross-env NODE_ENV=production IS_EXAMPLE=true PUBLIC_PATH=/vue-awesome-progress/ webpack --progress --config build/webpack.example.conf.js",
+        "build:example": "cross-env NODE_ENV=production IS_EXAMPLE=true PUBLIC_PATH=/vue-awesome-progress/ webpack --progress --config build/webpack.example.conf.js",
         "push-all": "git add . && git commit -m 一键commit && git push",
-        "deploy-pages": "npm run build-example && git subtree push --prefix=example origin gh-pages"
+        "deploy:pages": "npm run docs:build && git subtree push --prefix=example origin gh-pages"
     },
     "keywords": [
         "vue-awesome-progress",
@@ -67,6 +69,7 @@
         "vue-router": "^3.1.6",
         "vue-style-loader": "^4.1.2",
         "vue-template-compiler": "^2.6.12",
+        "vuepress": "^1.8.2",
         "webpack": "^4.42.1",
         "webpack-bundle-analyzer": "^3.6.1",
         "webpack-cli": "^3.3.11",

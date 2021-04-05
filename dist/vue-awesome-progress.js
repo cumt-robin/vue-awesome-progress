@@ -336,12 +336,12 @@ module.exports = g;
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/components/index.vue?vue&type=template&id=27346a2e&
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/components/index.vue?vue&type=template&id=64c07f75&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('canvas',{ref:"canvasDemo",style:({width: _vm.canvasSize, height: _vm.canvasSize})})}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/index.vue?vue&type=template&id=27346a2e&
+// CONCATENATED MODULE: ./src/components/index.vue?vue&type=template&id=64c07f75&
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/toConsumableArray.js
 var toConsumableArray = __webpack_require__(1);
@@ -1032,6 +1032,9 @@ function debounce(func, wait, options) {
       }
     }
   },
+  created: function created() {
+    this.handleResize = lodash_es_debounce(this.handleResize, 300);
+  },
   mounted: function mounted() {
     var easingParams = this.easing.split(',').map(function (item) {
       return Number(item);
@@ -1059,15 +1062,15 @@ function debounce(func, wait, options) {
       } // 处理dpx
 
 
-      this.handleDpr(); // 监控dpr
+      this.handleDpr(); // 监控resize
 
       window.addEventListener('resize', this.handleResize);
       this.renderContent();
     },
-    handleResize: lodash_es_debounce(function () {
+    handleResize: function handleResize() {
       this.handleDpr();
       this.renderContent();
-    }, 300),
+    },
     handleDpr: function handleDpr() {
       var dpr = Math.max(window.devicePixelRatio, 1); // 调整画布物理像素
 
