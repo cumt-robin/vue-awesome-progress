@@ -5,6 +5,8 @@ sidebar: auto
 
 # 使用指南
 
+## 效果示意
+
 基于`vue`和`canvas`的环形进度条组件，支持`npm`和`script`两种使用方式，支持和很多自定义的属性和动画效果，效果图如下
 
 ![环形进度条效果图](https://qncdn.wbjiang.cn/%E7%8E%AF%E5%BD%A2%E8%BF%9B%E5%BA%A6%E6%9D%A1%E6%95%88%E6%9E%9C%E5%9B%BE.gif)
@@ -101,8 +103,9 @@ export default {
 </div>
 ```
 
+格式化文字
+
 ```javascript
-// 格式化文字
 formatPeople(percentage) {
   return Math.round(percentage / 100 * 7000) + '人'
 }

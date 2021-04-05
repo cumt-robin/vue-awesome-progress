@@ -2,13 +2,16 @@
  * @Author: 蒋文斌
  * @Date: 2021-04-04 18:07:23
  * @LastEditors: 蒋文斌
- * @LastEditTime: 2021-04-05 19:02:32
+ * @LastEditTime: 2021-04-05 21:02:05
  * @Description: 自动生成
  */
 
 module.exports = {
     base: "/vue-awesome-progress/",
     dest: "example",
+    head: [
+        ['link', { rel: 'icon', href: '/assets/logo.png' }]
+    ],
     title: "vue-awesome-progress | 简约给力的Canvas环形进度条组件",
     description: "基于Vue框架开发的Canvas环形进度条组件，在效果层面提供了比较多的配置能力，除了颜色什么的，动画效果也可以自定义哦。",
     themeConfig: {

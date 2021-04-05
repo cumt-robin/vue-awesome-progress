@@ -15,8 +15,9 @@
         "analyze": "cross-env report=true npm run build",
         "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
         "build:example": "cross-env NODE_ENV=production IS_EXAMPLE=true PUBLIC_PATH=/vue-awesome-progress/ webpack --progress --config build/webpack.example.conf.js",
-        "push-all": "git add . && git commit -m 一键commit && git push",
-        "deploy:pages": "npm run docs:build && git subtree push --prefix=example origin gh-pages"
+        "push:all": "git add . && git commit -m 一键push && git push",
+        "commit:example": "git add example && git commit -m 一键更新example",
+        "deploy:pages": "npm run docs:build && npm run commit:example && git subtree push --prefix=example origin gh-pages"
     },
     "keywords": [
         "vue-awesome-progress",

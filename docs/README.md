@@ -2,7 +2,7 @@
 home: true
 heroImage: /assets/img/logo.png
 heroText: vue-awesome-progress
-tagline: null
+tagline: 简约给力的Canvas环形进度条组件
 actionText: 快速上手 →
 actionLink: /guide/
 features:
@@ -12,7 +12,7 @@ features:
   details: 拥抱 Vue 生态。
 - title: 高性能
   details: 基于 Canvas 绘图，纵享 GPU 加速带来的丝滑体验。
-footer: MIT Licensed | Copyright © 2021-present Robin Jang
+footer: MIT Licensed | Copyright © 2021-present Tusi
 ---
 
 ### 画进度条，可以很轻松
